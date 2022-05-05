@@ -47,3 +47,20 @@ steps:
     commandOptions: '-var security_alerts_email_address=$(email) -input=false -out=$(Build.BinariesDirectory)/tfplan'
     environmentServiceNameAzureRM: $(AzureConnector)
   displayName: 'Terraform Plan'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)'
+    includeRootFolder: false
+    archiveType: 'tar'
+    tarCompression: 'gz'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).tgz'
+    replaceExistingArchive: true
+    displayName: 'Create Plan Artifact'
+ 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: '$(Build.BuildId)-tfplan'
+    publishLocation: 'Container'
+    displayName: 'Publish Plan Artifact' 
