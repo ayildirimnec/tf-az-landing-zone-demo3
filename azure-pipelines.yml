@@ -1,0 +1,49 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: 'latest'
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: $(AzureConnector)
+    backendAzureRmResourceGroupName: 'rg-tf-landing-zone-demo1'
+    backendAzureRmStorageAccountName: 'stlandingzonedemo1'
+    backendAzureRmContainerName: 'tflandingzonedemo3container'
+    backendAzureRmKey: 'terraform.tfstate'
+  displayName: 'Terraform Init'
+  
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
+  displayName: 'Terraform Validate'
+
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    commandOptions: '-var security_alerts_email_address=$(email) -input=false -out=$(Build.BinariesDirectory)/tfplan'
+    environmentServiceNameAzureRM: $(AzureConnector)
+  displayName: 'Terraform Plan'
