@@ -8,7 +8,7 @@ locals {
           config = {
             address_space                = ["10.100.0.0/16", ]
             location                     = "northeurope"
-            link_to_ddos_protection_plan = true
+            link_to_ddos_protection_plan = false
             dns_servers                  = []
             bgp_community                = ""
             subnets                      = []
@@ -47,7 +47,7 @@ locals {
           config = {
             address_space                = ["10.101.0.0/16", ]
             location                     = "westeurope"
-            link_to_ddos_protection_plan = true
+            link_to_ddos_protection_plan = false
             dns_servers                  = []
             bgp_community                = ""
             subnets                      = []
