@@ -66,10 +66,10 @@ steps:
     publishLocation: 'Container'
     displayName: 'Publish Plan Artifact' 
 
-# - task: TerraformTaskV2@2
-#   inputs:
-#     provider: 'azurerm'
-#     command: 'destroy'
-#     commandOptions: '-input=false'
-#     environmentServiceNameAzureRM: $(AzureConnector)
-#   displayName: 'Terraform Apply'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    commandOptions: '-input=false'
+    environmentServiceNameAzureRM: $(AzureConnector)
+  displayName: 'Terraform Apply'
