@@ -33,6 +33,13 @@ steps:
     backendAzureRmKey: 'terraform.tfstate'
   displayName: 'Terraform Init'
   
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'import'
+  displayName: 'Terraform Import'
+
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
@@ -65,10 +72,10 @@ steps:
     publishLocation: 'Container'
     displayName: 'Publish Plan Artifact' 
 
-- task: TerraformTaskV2@2
-  inputs:
-    provider: 'azurerm'
-    command: 'destroy'
-    commandOptions: '-input=false'
-    environmentServiceNameAzureRM: $(AzureConnector)
-  displayName: 'Terraform Apply'
+# - task: TerraformTaskV2@2
+#   inputs:
+#     provider: 'azurerm'
+#     command: 'destroy'
+#     commandOptions: '-input=false'
+#     environmentServiceNameAzureRM: $(AzureConnector)
+#   displayName: 'Terraform Apply'
