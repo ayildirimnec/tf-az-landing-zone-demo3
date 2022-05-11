@@ -8,6 +8,10 @@ data "azurerm_client_config" "core" {}
 # Declare the Azure landing zones Terraform module
 # and provide a base configuration.
 
+terraform {
+  backend "azurerm" {}
+}
+
 module "enterprise_scale" {
   source  = "Azure/caf-enterprise-scale/azurerm"
   version = "2.0.0"
@@ -17,10 +21,6 @@ module "enterprise_scale" {
     azurerm.connectivity = azurerm
     azurerm.management   = azurerm
   }
-
-  terraform {
-  backend "azurerm" {}
-}
   
   root_parent_id = data.azurerm_client_config.core.tenant_id
   root_id        = var.root_id
