@@ -37,12 +37,6 @@ steps:
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
-    command: 'import'
-  displayName: 'Terraform Import'
-
-- task: TerraformTaskV2@2
-  inputs:
-    provider: 'azurerm'
     command: 'validate'
   displayName: 'Terraform Validate'
 
