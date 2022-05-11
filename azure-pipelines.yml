@@ -69,6 +69,6 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    commandOptions: '-input=false -var-file=my-variables.tfvars'
+    commandOptions: '-input=false'
     environmentServiceNameAzureRM: $(AzureConnector)
   displayName: 'Terraform Apply'
