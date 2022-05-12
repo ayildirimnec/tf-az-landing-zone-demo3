@@ -37,7 +37,7 @@ module "enterprise_scale" {
   providers = {
     azurerm              = azurerm
     azurerm.connectivity = azurerm.connectivity
-    azurerm.management   = azurerm
+
   }
   
   root_parent_id = data.azurerm_client_config.core.tenant_id
