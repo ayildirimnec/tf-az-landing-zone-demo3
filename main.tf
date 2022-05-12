@@ -13,10 +13,6 @@ provider "azurerm" {
   features {}
 }
 
-provider "azurerm" {
-  features {}
-}
-
 # Declare the Azure landing zones Terraform module
 # and provide a base configuration.
 
