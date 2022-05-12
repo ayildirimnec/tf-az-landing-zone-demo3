@@ -69,7 +69,7 @@ steps:
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
-    command: 'apply'
+    command: 'destroy'
     commandOptions: '-input=false'
     environmentServiceNameAzureRM: $(AzureConnector)
   displayName: 'Terraform Apply'
