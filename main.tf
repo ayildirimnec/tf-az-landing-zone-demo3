@@ -3,6 +3,18 @@
 # current Tenant ID used as the ID for the "Tenant Root Group"
 # Management Group.
 
+terraform {
+  required_providers {
+    azurerm = {
+      source                = "hashicorp/azurerm"
+      version               = ">= 3.0.2"
+      configuration_aliases = [
+        azurerm.connectivity,
+      ]
+    }
+  }
+}
+
 data "azurerm_client_config" "core" {}
 
 # Declare the Azure landing zones Terraform module
@@ -10,6 +22,12 @@ data "azurerm_client_config" "core" {}
 
 terraform {
   backend "azurerm" {}
+}
+
+provider "azurerm" {
+  alias           = "connectivity"
+  subscription_id = "901b9901-ee7f-4201-8457-6e5a038e675f"
+  features {}
 }
 
 module "enterprise_scale" {
@@ -27,7 +45,7 @@ module "enterprise_scale" {
   root_name      = var.root_name
 
   deploy_connectivity_resources    = var.deploy_connectivity_resources
-  subscription_id_connectivity     = data.azurerm_client_config.core.subscription_id
+  subscription_id_connectivity     = data.azurerm_client_config.connectivity.subscription_id
   configure_connectivity_resources = local.configure_connectivity_resources
 
 }
