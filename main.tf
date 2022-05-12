@@ -3,17 +3,16 @@
 # current Tenant ID used as the ID for the "Tenant Root Group"
 # Management Group.
 
+terraform {
+  backend "azurerm" {}
+}
+
 provider "azurerm" {
   features {}
 }
 
-
 # Declare the Azure landing zones Terraform module
 # and provide a base configuration.
-
-terraform {
-  backend "azurerm" {}
-}
 
 provider "azurerm" {
   alias           = "connectivity"
@@ -21,7 +20,9 @@ provider "azurerm" {
   features {}
 }
 
-data "azurerm_client_config" "core" {}
+data "azurerm_client_config" "core" {
+  provider = azurerm
+}
 
 data "azurerm_client_config" "connectivity" {
   provider = azurerm.connectivity
