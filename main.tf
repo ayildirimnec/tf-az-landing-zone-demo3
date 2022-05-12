@@ -8,17 +8,19 @@ terraform {
 }
 
 provider "azurerm" {
+  alias           = "connectivity"
+  subscription_id = "901b9901-ee7f-4201-8457-6e5a038e675f"
+  features {}
+}
+
+provider "azurerm" {
   features {}
 }
 
 # Declare the Azure landing zones Terraform module
 # and provide a base configuration.
 
-provider "azurerm" {
-  alias           = "connectivity"
-  subscription_id = "901b9901-ee7f-4201-8457-6e5a038e675f"
-  features {}
-}
+
 
 data "azurerm_client_config" "core" {
   provider = azurerm
